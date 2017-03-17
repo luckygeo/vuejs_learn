@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="app1" v-text="msg"></div>
+<div id="app2"> {{msg}} <input type="text" v-model="msg"> </span></div>
+<div id="app3"><span v-if="see">Now You See Me</span></div>
+<div id="app4"><table ><tr  v-for="name in obj"><td>{{name}}</td></tr></table></div>
+<div id="app5">{{msg}} <button @click="reverseMessage">rever</button> <button @click="count">rever</button>  </div>
+<div id="app6">{{msg}}<input type="text" v-model="msg"></div>
+<script src="js/vue.js"></script>
+<script>
+    /*页面渲染1*/
+    var app = new Vue({ el: "#app1", data: {"msg":"Hello Vue"} })
+    /*数据绑定2*/
+    new Vue({el: "#app2", data: {"msg": "当前时间" + new Date()}})
+    /*if条件3*/
+   var app3= new Vue({el: "#app3",data:{see:true}}) //false 则不可见
+    /*v-for*/
+    var app4=new Vue({el:"#app4" ,data:  { obj:['gao','liu'] }})
+    /*为了让用户和你的应用进行交互，我们可以用 v-on 指令绑定一个调用 Vue 实例方法的事件监听器 可以简写@click*/
+    var app5 = new Vue({el: "#app5",
+        data: {msg: "高想在写vue"},
+        methods:{
+            reverseMessage:function () {
+                this.msg=this.msg.split('').reverse().join('');
+            },
+            count:function () {
+                alert()
+            }
+        }
+
+    })
+    //数据绑定使用 v-model 只支持表单控件使用
+    var app6=new Vue({
+        el:"#app6",
+        data:{
+            msg:"hello vue "
+        }
+
+    })
+    /*组件化构建应用*/
+    app6.$watch('msg', function (newVal, oldVal) {
+        // 这个回调将在 `vm.a`  改变后调用
+        alert(newVal);
+        alert(oldVal)
+    })
+
+
+</script>
+</body>
+</html>
